@@ -1,0 +1,8 @@
+apply plugin: 'application'
+
+mainClassName = 'com.nilhcem.kata.fizzbuzz.App'
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.assertj:assertj-core:1.5.0'
+}

@@ -1,6 +1,6 @@
 apply plugin: 'application'
 
-mainClassName = 'com.nilhcem.kata.fizzbuzz.App'
+mainClassName = 'com.nilhcem.inmem.App'
 
 dependencies {
     testCompile 'junit:junit:4.11'

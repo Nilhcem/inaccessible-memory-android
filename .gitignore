@@ -1,21 +1,43 @@
-# temporary files
+# Temporary files
 *~
 \#*#
 tmp/
 
-# build directory
-build/
+# Android files
+*.apk
+*.ap_
+*.dex
 
-# java
+# Java class files
 *.class
 
-# intelliJ IDEA
-.idea/
-*.iml
+# Generated files
+bin/
+gen/
 
-# mac / windows
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+project.properties
+
+# Proguard
+proguard/
+
+# IntelliJ
+*.iml
+*.iws
+*.ipr
+.idea/
+gen-external-apklibs/
+
+# OSX files
 .DS_Store
+
+# Windows files
 Thumbs.db
 
-# gradle
-.gradle/
+# Backup files
+*.bak

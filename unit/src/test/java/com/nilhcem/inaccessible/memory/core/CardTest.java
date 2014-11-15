@@ -1,4 +1,6 @@
-package com.nilhcem.inaccessible.memory;
+package com.nilhcem.inaccessible.memory.core;
+
+import com.nilhcem.inaccessible.memory.RobolectricGradleTestRunner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(RobolectricGradleTestRunner.class)
 public class CardTest {
 
-    private Card card = new Card("title");
+    private com.nilhcem.inaccessible.memory.core.Card card = new com.nilhcem.inaccessible.memory.core.Card("title");
 
     @Test
     public void should_be_face_down_when_created() {
@@ -30,9 +32,9 @@ public class CardTest {
 
     @Test
     public void should_return_true_when_checking_two_cards_with_similar_names_equality() {
-        Card card1 = new Card("same_name");
+        com.nilhcem.inaccessible.memory.core.Card card1 = new com.nilhcem.inaccessible.memory.core.Card("same_name");
         card1.flip();
-        Card card2 = new Card("same_name");
+        com.nilhcem.inaccessible.memory.core.Card card2 = new com.nilhcem.inaccessible.memory.core.Card("same_name");
 
         assertThat(card1).isNotSameAs(card2);
         assertThat(card1).isEqualTo(card2);
@@ -40,8 +42,8 @@ public class CardTest {
 
     @Test
     public void should_return_false_when_checking_different_cards_names_equality() {
-        Card card1 = new Card("name_1");
-        Card card2 = new Card("name_2");
+        com.nilhcem.inaccessible.memory.core.Card card1 = new com.nilhcem.inaccessible.memory.core.Card("name_1");
+        com.nilhcem.inaccessible.memory.core.Card card2 = new com.nilhcem.inaccessible.memory.core.Card("name_2");
         assertThat(card1).isNotEqualTo(card2);
     }
 }

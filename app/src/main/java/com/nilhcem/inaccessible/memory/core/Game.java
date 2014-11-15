@@ -1,4 +1,4 @@
-package com.nilhcem.inaccessible.memory;
+package com.nilhcem.inaccessible.memory.core;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Game {
 
-    final Card[] cards;
-    Card previouslyFlippedCard;
+    final Card[] mCards;
+    Card mPreviouslyFlippedCard;
 
     public Game(String... cards) {
         List<Card> deck = new ArrayList<>();
@@ -16,25 +16,29 @@ public class Game {
             deck.add(new Card(card));
         }
         Collections.shuffle(deck);
-        this.cards = deck.toArray(new Card[deck.size()]);
+        mCards = deck.toArray(new Card[deck.size()]);
+    }
+
+    public Card getCardAt(int position) {
+        return mCards[position];
     }
 
     public int getNbCards() {
-        return cards.length;
+        return mCards.length;
     }
 
     public void flipCard(int position) {
-        Card cardToFlip = cards[position];
+        Card cardToFlip = mCards[position];
         if (!cardToFlip.isFaceDown()) {
             throw new UnsupportedOperationException("Card is already face up");
         }
 
         cardToFlip.flip();
-        if (previouslyFlippedCard == null) {
-            previouslyFlippedCard = cardToFlip;
+        if (mPreviouslyFlippedCard == null) {
+            mPreviouslyFlippedCard = cardToFlip;
         } else {
-            setCardsToFaceOffAgainIfNotSimilar(previouslyFlippedCard, cardToFlip);
-            previouslyFlippedCard = null;
+            setCardsToFaceOffAgainIfNotSimilar(mPreviouslyFlippedCard, cardToFlip);
+            mPreviouslyFlippedCard = null;
         }
     }
 
@@ -47,7 +51,7 @@ public class Game {
     }
 
     public boolean isOver() {
-        for (Card card : cards) {
+        for (Card card : mCards) {
             if (card.isFaceDown()) {
                 return false;
             }

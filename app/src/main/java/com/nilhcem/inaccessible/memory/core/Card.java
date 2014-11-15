@@ -1,25 +1,29 @@
-package com.nilhcem.inaccessible.memory;
+package com.nilhcem.inaccessible.memory.core;
 
 public class Card {
 
-    final String title;
-    boolean faceDown = true;
+    final String mTitle;
+    boolean mFaceDown = true;
 
     public Card(String title) {
-        this.title = title;
+        mTitle = title;
+    }
+
+    public String getTitle() {
+        return mTitle;
     }
 
     public boolean isFaceDown() {
-        return faceDown;
+        return mFaceDown;
     }
 
     public void flip() {
-        faceDown = !faceDown;
+        mFaceDown = !mFaceDown;
     }
 
     @Override
     public String toString() {
-        return "Card{title='" + title + "', faceDown=" + faceDown + "}";
+        return "Card{title='" + mTitle + "', faceDown=" + mFaceDown + "}";
     }
 
     @Override
@@ -32,7 +36,7 @@ public class Card {
         }
 
         Card card = (Card) o;
-        if (title != null ? !title.equals(card.title) : card.title != null) {
+        if (mTitle != null ? !mTitle.equals(card.mTitle) : card.mTitle != null) {
             return false;
         }
         return true;
@@ -40,6 +44,6 @@ public class Card {
 
     @Override
     public int hashCode() {
-        return title != null ? title.hashCode() : 0;
+        return mTitle != null ? mTitle.hashCode() : 0;
     }
 }

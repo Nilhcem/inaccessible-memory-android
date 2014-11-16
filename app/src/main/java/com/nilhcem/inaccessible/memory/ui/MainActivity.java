@@ -9,6 +9,8 @@ import com.nilhcem.inaccessible.memory.BuildConfig;
 import com.nilhcem.inaccessible.memory.R;
 import com.nilhcem.inaccessible.memory.core.Game;
 
+import java.util.Random;
+
 import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus;
 import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.INVALID_PAIR;
 import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.PAIR_FOUND;
@@ -17,11 +19,14 @@ public class MainActivity extends ActionBarActivity implements CardView.OnCardFl
 
     private Game mGame;
     private ViewGroup mLayout;
+    private String[] mCheersMessages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mGame = new Game(getResources().getStringArray(R.array.animals_array));
+        mCheersMessages = getResources().getStringArray(R.array.cheers_array);
+
         mLayout = createLayout(mGame);
         setContentView(mLayout);
     }
@@ -40,19 +45,19 @@ public class MainActivity extends ActionBarActivity implements CardView.OnCardFl
         try {
             FlippedStatus flippedStatus = mGame.flipCard(position);
             if (flippedStatus.equals(PAIR_FOUND)) {
-                displayMessage(getString(R.string.pair_found));
+                announceMessage(mCheersMessages[new Random().nextInt(mCheersMessages.length)]);
             } else if (flippedStatus.equals(INVALID_PAIR)) {
-                displayMessage(getString(R.string.pair_invalid));
+                announceMessage(getString(R.string.pair_invalid));
             }
         } catch (UnsupportedOperationException e) {
-            displayMessage(getString(R.string.card_already_flipped_error, position + 1));
+            announceMessage(getString(R.string.card_already_flipped_error, position + 1));
         }
 
         updateCardsContentDescriptions();
         checkGameOver();
     }
 
-    private void displayMessage(String error) {
+    private void announceMessage(String error) {
         if (BuildConfig.DEBUG) {
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
         } else {
@@ -69,7 +74,7 @@ public class MainActivity extends ActionBarActivity implements CardView.OnCardFl
 
     private void checkGameOver() {
         if (mGame.isOver()) {
-            displayMessage(getString(R.string.game_over));
+            announceMessage(getString(R.string.game_over));
         }
     }
 }

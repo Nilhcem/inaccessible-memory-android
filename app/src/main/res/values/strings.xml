@@ -7,9 +7,6 @@
     <string name="card_content_description_face_up">"Card %1$d is a %2$s"</string>
 
     <string name="card_already_flipped_error">Error: card %1$d is already facing up. Please select a face-down card.</string>
-
-    <string name="pair_found">Great!</string>
     <string name="pair_invalid">Invalid pair.</string>
-
     <string name="game_over">Game is over. Congratulations!</string>
 </resources>

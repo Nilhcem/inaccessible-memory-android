@@ -36,6 +36,7 @@ public class CardView extends View implements View.OnClickListener {
     public void onClick(View v) {
         mListener.onCardFlipped(mPosition);
         updateContentDescription();
+        announceForAccessibility(getContentDescription());
     }
 
     @Override

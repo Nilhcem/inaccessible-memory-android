@@ -1,7 +1,6 @@
 package com.nilhcem.inaccessible.memory.ui.game;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -13,6 +12,7 @@ import com.nilhcem.inaccessible.memory.ui.base.BaseActivity;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import icepick.Icepick;
@@ -38,7 +38,7 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
         Icepick.restoreInstanceState(this, savedInstanceState);
 
         if (savedInstanceState == null) {
-            mGame = new Game(getResources().getStringArray(R.array.animals_array));
+            mGame = new Game(Arrays.copyOfRange(getResources().getStringArray(R.array.animals_array), 0, getIntent().getIntExtra(EXTRA_NB_CARDS, 0)));
             mCheersMessages = getResources().getStringArray(R.array.cheers_array);
             mStarted = new DateTime();
         }

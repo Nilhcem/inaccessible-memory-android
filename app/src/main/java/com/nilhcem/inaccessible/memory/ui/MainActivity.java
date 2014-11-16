@@ -75,6 +75,7 @@ public class MainActivity extends ActionBarActivity implements CardView.OnCardFl
     private void checkGameOver() {
         if (mGame.isOver()) {
             announceMessage(getString(R.string.game_over));
+            finish();
         }
     }
 }

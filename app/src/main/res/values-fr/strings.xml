@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Memory (jeu)</string>
+
+    <!-- Menu Activity -->
+    <string name="difficulty_select">Sélectionnez une difficulté :</string>
+    <string name="difficulty_easy">Facile</string>
+    <string name="difficulty_medium">Moyen</string>
+    <string name="difficulty_hard">Difficile</string>
+
+    <!-- Game Activity -->
+    <string name="card_content_description_prefix">"Carte "</string>
+    <string name="card_content_description_face_down">Carte %d</string>
+    <string name="card_content_description_face_up">"Carte %1$d est un %2$s"</string>
+
+    <string name="card_already_flipped_error">Erreur : la carte %1$d est déjà retournée. Veuillez choisir une carte face cachée</string>
+    <string name="pair_invalid">Mauvais choix.</string>
+    <string name="game_over">Le jeu est terminé. Félicitations ! Vous avez trouvé toutes les %1$d cartes en %2$d secondes</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cheers_array">
+        <item>Bien !</item>
+        <item>Bravo !</item>
+        <item>Excellent !</item>
+        <item>Super !</item>
+        <item>Terrible !</item>
+    </string-array>
+</resources>

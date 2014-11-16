@@ -9,6 +9,9 @@ import com.nilhcem.inaccessible.memory.BuildConfig;
 import com.nilhcem.inaccessible.memory.R;
 import com.nilhcem.inaccessible.memory.core.Game;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+
 import java.util.Random;
 
 import icepick.Icepick;
@@ -21,18 +24,21 @@ import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.PAIR_FOUND
 public class MainActivity extends ActionBarActivity implements CardView.OnCardFlippedListener {
 
     @Icicle Game mGame;
+    @Icicle String[] mCheersMessages;
+    @Icicle DateTime mStarted;
+
     private ViewGroup mLayout;
-    private String[] mCheersMessages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Icepick.restoreInstanceState(this, savedInstanceState);
 
-        if (mGame == null) {
+        if (savedInstanceState == null) {
             mGame = new Game(getResources().getStringArray(R.array.animals_array));
+            mCheersMessages = getResources().getStringArray(R.array.cheers_array);
+            mStarted = new DateTime();
         }
-        mCheersMessages = getResources().getStringArray(R.array.cheers_array);
         mLayout = createLayout(mGame);
         setContentView(mLayout);
     }
@@ -86,7 +92,7 @@ public class MainActivity extends ActionBarActivity implements CardView.OnCardFl
 
     private void checkGameOver() {
         if (mGame.isOver()) {
-            announceMessage(getString(R.string.game_over));
+            announceMessage(getString(R.string.game_over, new Duration(mStarted, new DateTime()).getStandardSeconds()));
             finish();
         }
     }

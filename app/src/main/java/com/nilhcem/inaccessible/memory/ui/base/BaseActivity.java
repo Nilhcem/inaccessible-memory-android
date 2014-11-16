@@ -1,11 +1,11 @@
 package com.nilhcem.inaccessible.memory.ui.base;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 
 import icepick.Icepick;
 
-public abstract class BaseActivity extends ActionBarActivity {
+public abstract class BaseActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

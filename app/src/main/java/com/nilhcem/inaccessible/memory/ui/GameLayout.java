@@ -170,4 +170,14 @@ public class GameLayout extends ViewGroup {
             ++visibleIndex;
         }
     }
+
+    @Override
+    public void invalidate() {
+        super.invalidate();
+
+        final int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+            getChildAt(i).invalidate();
+        }
+    }
 }

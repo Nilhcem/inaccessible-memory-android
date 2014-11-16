@@ -19,12 +19,17 @@ public class CardViewTest {
 
     @Mock Card card;
     private CardView view;
+    private CardView.OnCardFlippedListener listener = new CardView.OnCardFlippedListener() {
+        @Override
+        public void onCardFlipped(int position) {
+        }
+    };
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         when(card.isFaceDown()).thenReturn(true);
-        view = new CardView(Robolectric.application, card, 0);
+        view = new CardView(Robolectric.application, card, 0, listener);
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.nilhcem.inaccessible.memory.ui;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,16 +11,31 @@ import com.nilhcem.inaccessible.memory.BuildConfig;
 import com.nilhcem.inaccessible.memory.R;
 import com.nilhcem.inaccessible.memory.core.Card;
 
-public class CardView extends View {
+import java.util.Locale;
+
+public class CardView extends View implements View.OnClickListener {
 
     private Card mCard;
     private int mPosition;
+    private OnCardFlippedListener mListener;
 
-    public CardView(Context context, Card card, int position) {
+    public interface OnCardFlippedListener {
+        void onCardFlipped(int position);
+    }
+
+    public CardView(Context context, Card card, int position, OnCardFlippedListener listener) {
         super(context);
         mCard = card;
         mPosition = position;
-        setContentDescription();
+        mListener = listener;
+        updateContentDescription();
+        setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        mListener.onCardFlipped(mPosition);
+        updateContentDescription();
     }
 
     @Override
@@ -36,15 +52,20 @@ public class CardView extends View {
             paint.setColor(Color.BLACK);
             paint.setTextSize(20);
 
-            canvas.drawText(getContentDescription().toString(), 10, 25, paint);
+            canvas.drawText(getContentDescription().toString().replaceAll(getResources().getString(R.string.card_content_description_prefix), "#"), 10, 25, paint);
         }
     }
 
-    private void setContentDescription() {
+    private void updateContentDescription() {
+        String contentDescription;
+        int readablePos = mPosition + 1;
+        Resources res = getContext().getResources();
+
         if (mCard.isFaceDown()) {
-            setContentDescription(getContext().getResources().getString(R.string.card_content_description_face_down, mPosition + 1));
+            contentDescription = res.getString(R.string.card_content_description_face_down, readablePos);
         } else {
-            setContentDescription(getContext().getResources().getString(R.string.card_content_description_face_up, mPosition + 1, mCard.getTitle()));
+            contentDescription = res.getString(R.string.card_content_description_face_up, readablePos, mCard.getTitle().toLowerCase(Locale.getDefault()));
         }
+        setContentDescription(contentDescription);
     }
 }

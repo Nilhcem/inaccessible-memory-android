@@ -4,5 +4,12 @@
         <item>Bird</item>
         <item>Cat</item>
         <item>Cow</item>
+        <item>Dog</item>
+        <item>Fish</item>
+        <item>Snake</item>
+        <item>Horse</item>
+        <item>Monkey</item>
+        <item>Panda</item>
+        <item>Tiger</item>
     </string-array>
 </resources>

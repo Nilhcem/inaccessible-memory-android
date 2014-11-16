@@ -34,9 +34,11 @@ public class CardView extends View implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if (mCard.isFaceDown()) {
+            updateContentDescription(false);
+            announceForAccessibility(getContentDescription());
+        }
         mListener.onCardFlipped(mPosition);
-        updateContentDescription();
-        announceForAccessibility(getContentDescription());
     }
 
     @Override
@@ -57,16 +59,24 @@ public class CardView extends View implements View.OnClickListener {
         }
     }
 
-    private void updateContentDescription() {
+    public void updateContentDescription() {
+        updateContentDescription(mCard.isFaceDown());
+    }
+
+    public void updateContentDescription(boolean cardIsFacingDown) {
         String contentDescription;
         int readablePos = mPosition + 1;
         Resources res = getContext().getResources();
 
-        if (mCard.isFaceDown()) {
+        if (cardIsFacingDown) {
             contentDescription = res.getString(R.string.card_content_description_face_down, readablePos);
         } else {
             contentDescription = res.getString(R.string.card_content_description_face_up, readablePos, mCard.getTitle().toLowerCase(Locale.getDefault()));
         }
         setContentDescription(contentDescription);
+
+        if (BuildConfig.DEBUG) {
+            invalidate();
+        }
     }
 }

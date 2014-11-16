@@ -2,7 +2,7 @@ package com.nilhcem.inaccessible.memory.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.nilhcem.inaccessible.memory.BuildConfig;
@@ -12,7 +12,7 @@ import com.nilhcem.inaccessible.memory.core.Game;
 public class MainActivity extends ActionBarActivity implements CardView.OnCardFlippedListener {
 
     private Game mGame;
-    private View mLayout;
+    private ViewGroup mLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class MainActivity extends ActionBarActivity implements CardView.OnCardFl
         setContentView(mLayout);
     }
 
-    private View createLayout(Game game) {
+    private ViewGroup createLayout(Game game) {
         GameLayout layout = new GameLayout(this);
         int nbCards = game.getNbCards();
         for (int i = 0; i < nbCards; i++) {
@@ -38,7 +38,11 @@ public class MainActivity extends ActionBarActivity implements CardView.OnCardFl
         } catch (UnsupportedOperationException e) {
             displayError(getString(R.string.card_already_flipped_error, position + 1));
         }
-        mLayout.invalidate();
+
+        final int count = mLayout.getChildCount();
+        for (int i = 0; i < count; i++) {
+            ((CardView) mLayout.getChildAt(i)).updateContentDescription();
+        }
     }
 
     private void displayError(String error) {

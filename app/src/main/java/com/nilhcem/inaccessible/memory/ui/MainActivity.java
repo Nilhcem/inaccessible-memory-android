@@ -3,7 +3,9 @@ package com.nilhcem.inaccessible.memory.ui;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.Toast;
 
+import com.nilhcem.inaccessible.memory.BuildConfig;
 import com.nilhcem.inaccessible.memory.R;
 import com.nilhcem.inaccessible.memory.core.Game;
 
@@ -31,7 +33,19 @@ public class MainActivity extends ActionBarActivity implements CardView.OnCardFl
 
     @Override
     public void onCardFlipped(int position) {
-        mGame.flipCard(position);
+        try {
+            mGame.flipCard(position);
+        } catch (UnsupportedOperationException e) {
+            displayError(getString(R.string.card_already_flipped_error, position + 1));
+        }
         mLayout.invalidate();
+    }
+
+    private void displayError(String error) {
+        if (BuildConfig.DEBUG) {
+            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        } else {
+            mLayout.announceForAccessibility(error);
+        }
     }
 }

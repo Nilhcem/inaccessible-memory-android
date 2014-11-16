@@ -43,6 +43,10 @@ public class MainActivity extends ActionBarActivity implements CardView.OnCardFl
         for (int i = 0; i < count; i++) {
             ((CardView) mLayout.getChildAt(i)).updateContentDescription();
         }
+
+        if (mGame.isOver()) {
+            displayError(getString(R.string.game_over));
+        }
     }
 
     private void displayError(String error) {

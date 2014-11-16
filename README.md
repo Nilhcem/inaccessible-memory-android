@@ -23,6 +23,6 @@ Import with Android Studio, or use gradle directly.
 ./scripts/run-tests-unit.sh
 ```
 
-[1]: https://raw.githubusercontent.com/Nilhcem/inaccessible-memory-android/master/misc/screenshot.jpg
+[1]: https://raw.githubusercontent.com/Nilhcem/inaccessible-memory-android/master/misc/screenshot.png
 [2]: https://raw.githubusercontent.com/Nilhcem/inaccessible-memory-android/master/misc/selfid.apk
 [3]: http://en.wikipedia.org/wiki/Concentration_%28game%29

@@ -1,10 +1,13 @@
 package com.nilhcem.inaccessible.memory.core;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Game {
+public class Game implements Parcelable {
 
     final Card[] mCards;
     Card mPreviouslyFlippedCard;
@@ -68,4 +71,32 @@ public class Game {
         }
         return true;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mCards.length);
+        dest.writeTypedArray(mCards, flags);
+        dest.writeParcelable(this.mPreviouslyFlippedCard, 0);
+    }
+
+    private Game(Parcel in) {
+        mCards = new Card[in.readInt()];
+        in.readTypedArray(mCards, Card.CREATOR);
+        this.mPreviouslyFlippedCard = in.readParcelable(Card.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {
+        public Game createFromParcel(Parcel source) {
+            return new Game(source);
+        }
+
+        public Game[] newArray(int size) {
+            return new Game[size];
+        }
+    };
 }

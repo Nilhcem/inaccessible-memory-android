@@ -11,33 +11,36 @@ import com.nilhcem.inaccessible.memory.core.Game;
 
 import java.util.Random;
 
+import icepick.Icepick;
+import icepick.Icicle;
+
 import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus;
 import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.INVALID_PAIR;
 import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.PAIR_FOUND;
 
 public class MainActivity extends ActionBarActivity implements CardView.OnCardFlippedListener {
 
-    private Game mGame;
+    @Icicle Game mGame;
     private ViewGroup mLayout;
     private String[] mCheersMessages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGame = new Game(getResources().getStringArray(R.array.animals_array));
-        mCheersMessages = getResources().getStringArray(R.array.cheers_array);
+        Icepick.restoreInstanceState(this, savedInstanceState);
 
+        if (mGame == null) {
+            mGame = new Game(getResources().getStringArray(R.array.animals_array));
+        }
+        mCheersMessages = getResources().getStringArray(R.array.cheers_array);
         mLayout = createLayout(mGame);
         setContentView(mLayout);
     }
 
-    private ViewGroup createLayout(Game game) {
-        GameLayout layout = new GameLayout(this);
-        int nbCards = game.getNbCards();
-        for (int i = 0; i < nbCards; i++) {
-            layout.addView(new CardView(this, game.getCardAt(i), i, this));
-        }
-        return layout;
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
     }
 
     @Override
@@ -55,6 +58,15 @@ public class MainActivity extends ActionBarActivity implements CardView.OnCardFl
 
         updateCardsContentDescriptions();
         checkGameOver();
+    }
+
+    private ViewGroup createLayout(Game game) {
+        GameLayout layout = new GameLayout(this);
+        int nbCards = game.getNbCards();
+        for (int i = 0; i < nbCards; i++) {
+            layout.addView(new CardView(this, game.getCardAt(i), i, this));
+        }
+        return layout;
     }
 
     private void announceMessage(String error) {

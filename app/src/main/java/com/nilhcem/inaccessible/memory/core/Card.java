@@ -1,6 +1,9 @@
 package com.nilhcem.inaccessible.memory.core;
 
-public class Card {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Card implements Parcelable {
 
     final String mTitle;
     boolean mFaceDown = true;
@@ -46,4 +49,30 @@ public class Card {
     public int hashCode() {
         return mTitle != null ? mTitle.hashCode() : 0;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mTitle);
+        dest.writeByte(mFaceDown ? (byte) 1 : (byte) 0);
+    }
+
+    private Card(Parcel in) {
+        mTitle = in.readString();
+        mFaceDown = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<Card> CREATOR = new Parcelable.Creator<Card>() {
+        public Card createFromParcel(Parcel source) {
+            return new Card(source);
+        }
+
+        public Card[] newArray(int size) {
+            return new Card[size];
+        }
+    };
 }

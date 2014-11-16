@@ -15,5 +15,5 @@
 
     <string name="card_already_flipped_error">Error: card %1$d is already facing up. Please select a face-down card.</string>
     <string name="pair_invalid">Invalid pair.</string>
-    <string name="game_over">Game is over. Congratulations! You found all the cards in %d seconds</string>
+    <string name="game_over">Game is over. Congratulations! You found all the %1$d cards in %2$d seconds</string>
 </resources>

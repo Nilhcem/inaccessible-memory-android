@@ -15,7 +15,6 @@ import org.joda.time.Duration;
 import java.util.Arrays;
 import java.util.Random;
 
-import icepick.Icepick;
 import icepick.Icicle;
 
 import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus;
@@ -30,15 +29,16 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
     @Icicle String[] mCheersMessages;
     @Icicle DateTime mStarted;
 
+    private int mNbCards;
     private ViewGroup mLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Icepick.restoreInstanceState(this, savedInstanceState);
+        mNbCards = getIntent().getIntExtra(EXTRA_NB_CARDS, 0);
 
         if (savedInstanceState == null) {
-            mGame = new Game(Arrays.copyOfRange(getResources().getStringArray(R.array.animals_array), 0, getIntent().getIntExtra(EXTRA_NB_CARDS, 0)));
+            mGame = new Game(Arrays.copyOfRange(getResources().getStringArray(R.array.animals_array), 0, mNbCards));
             mCheersMessages = getResources().getStringArray(R.array.cheers_array);
             mStarted = new DateTime();
         }
@@ -89,7 +89,7 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
 
     private void checkGameOver() {
         if (mGame.isOver()) {
-            announceMessage(getString(R.string.game_over, new Duration(mStarted, new DateTime()).getStandardSeconds()));
+            announceMessage(getString(R.string.game_over, mNbCards * 2, new Duration(mStarted, new DateTime()).getStandardSeconds()));
             finish();
         }
     }

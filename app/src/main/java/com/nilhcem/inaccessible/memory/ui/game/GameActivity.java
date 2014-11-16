@@ -1,6 +1,7 @@
 package com.nilhcem.inaccessible.memory.ui.game;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.PAIR_FOUND
 public class GameActivity extends BaseActivity implements CardView.OnCardFlippedListener {
 
     public static final String EXTRA_NB_CARDS = "nb_cards";
+    private static final int ONE_SECOND = 1000;
 
     @Icicle Game mGame;
     @Icicle String[] mCheersMessages;
@@ -31,6 +33,7 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
 
     private int mNbCards;
     private ViewGroup mLayout;
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +54,9 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
         try {
             FlippedStatus flippedStatus = mGame.flipCard(position);
             if (flippedStatus.equals(PAIR_FOUND)) {
-                announceMessage(mCheersMessages[new Random().nextInt(mCheersMessages.length)]);
+                announceMessage(mCheersMessages[new Random().nextInt(mCheersMessages.length)], true);
             } else if (flippedStatus.equals(INVALID_PAIR)) {
-                announceMessage(getString(R.string.pair_invalid));
+                announceMessage(getString(R.string.pair_invalid), true);
             }
         } catch (UnsupportedOperationException e) {
             announceMessage(getString(R.string.card_already_flipped_error, position + 1));
@@ -72,11 +75,19 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
         return layout;
     }
 
-    private void announceMessage(String error) {
+    private void announceMessage(String message) {
+        announceMessage(message, false);
+    }
+
+    private void announceMessage(final String message, boolean withDelay) {
         if (BuildConfig.DEBUG) {
-            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         } else {
-            mLayout.announceForAccessibility(error);
+            mHandler.postDelayed(new Runnable() {
+                public void run() {
+                    mLayout.announceForAccessibility(message);
+                }
+            }, withDelay ? ONE_SECOND : 0);
         }
     }
 

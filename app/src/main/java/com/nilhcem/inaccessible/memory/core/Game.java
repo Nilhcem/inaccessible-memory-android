@@ -30,7 +30,7 @@ public class Game {
     public void flipCard(int position) {
         Card cardToFlip = mCards[position];
         if (!cardToFlip.isFaceDown()) {
-            throw new UnsupportedOperationException("Card is already face up");
+            throw new UnsupportedOperationException("Card is already facing up");
         }
 
         cardToFlip.flip();

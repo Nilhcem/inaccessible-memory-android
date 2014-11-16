@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Memory</string>
+    <string name="app_name">Memory Game</string>
+
+    <string name="card_content_description_face_down">Card %d</string>
+    <string name="card_content_description_face_up">"Card %1$d is a %2$s"</string>
 </resources>

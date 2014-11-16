@@ -7,9 +7,9 @@ Download the apk [here][2], compatible with Android 4.1 (API 16) and above.
 
 ## What is it?
 
-`Inaccessible memory` is a [Concentration][3] game *only playable* by people having Google Talkback running on their device. (it should also work pretty well with BrailleBack).
+*Inaccessible memory* is a [Concentration][3] game **only playable** by people having Google Talkback running on their device. (It should also work pretty well with BrailleBack).
 
-The goal is to frustrate 'sighted players' the same way apps designed without accessibility in mind frustrate non-sighted users.
+The goal is to frustrate *sighted players* the same way apps designed without accessibility in mind frustrate non-sighted users.
 
 
 ## Building

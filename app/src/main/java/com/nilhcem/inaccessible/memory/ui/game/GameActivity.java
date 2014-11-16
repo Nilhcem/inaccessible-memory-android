@@ -25,7 +25,7 @@ import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.PAIR_FOUND
 public class GameActivity extends BaseActivity implements CardView.OnCardFlippedListener {
 
     public static final String EXTRA_NB_CARDS = "nb_cards";
-    private static final int ONE_SECOND = 1000;
+    private static final int DELAY = 300;
 
     @Icicle Game mGame;
     @Icicle String[] mCheersMessages;
@@ -87,7 +87,7 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
                 public void run() {
                     mLayout.announceForAccessibility(message);
                 }
-            }, withDelay ? ONE_SECOND : 0);
+            }, withDelay ? DELAY : 0);
         }
     }
 
@@ -100,7 +100,7 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
 
     private void checkGameOver() {
         if (mGame.isOver()) {
-            announceMessage(getString(R.string.game_over, mNbCards * 2, new Duration(mStarted, new DateTime()).getStandardSeconds()));
+            announceMessage(getString(R.string.game_over, mNbCards * 2, new Duration(mStarted, new DateTime()).getStandardSeconds()), true);
             finish();
         }
     }

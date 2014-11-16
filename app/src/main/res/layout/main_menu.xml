@@ -10,7 +10,6 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:contentDescription="@string/difficulty_select"
         android:gravity="center"
         android:padding="8dp"
         android:text="@string/difficulty_select"

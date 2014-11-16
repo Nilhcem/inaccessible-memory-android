@@ -18,6 +18,7 @@ public class CardView extends View implements View.OnClickListener {
     private Card mCard;
     private int mPosition;
     private OnCardFlippedListener mListener;
+    private Paint mPaint = new Paint();
 
     public interface OnCardFlippedListener {
         void onCardFlipped(int position);
@@ -47,15 +48,13 @@ public class CardView extends View implements View.OnClickListener {
 
         // Simplify manual testing by painting the card's content description
         if (BuildConfig.DEBUG) {
-            Paint paint = new Paint();
-            paint.setColor(Color.WHITE);
-            paint.setStyle(Paint.Style.FILL);
-            canvas.drawPaint(paint);
+            mPaint.setColor(Color.WHITE);
+            mPaint.setStyle(Paint.Style.FILL);
+            canvas.drawPaint(mPaint);
 
-            paint.setColor(Color.BLACK);
-            paint.setTextSize(20);
-
-            canvas.drawText(getContentDescription().toString().replaceAll(getResources().getString(R.string.card_content_description_prefix), "#"), 10, 25, paint);
+            mPaint.setColor(Color.BLACK);
+            mPaint.setTextSize(20);
+            canvas.drawText(getContentDescription().toString().replaceAll(getResources().getString(R.string.card_content_description_prefix), "#"), 10, 25, mPaint);
         }
     }
 

@@ -5,6 +5,10 @@ import com.nilhcem.inaccessible.memory.RobolectricGradleTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus;
+import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.INVALID_PAIR;
+import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.PAIR_FOUND;
+import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.WAITING_FOR_SECOND_CARD_TO_BE_FLIPPED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -21,7 +25,8 @@ public class GameTest {
 
     @Test
     public void should_flip_a_card_from_the_game() {
-        game.flipCard(0);
+        FlippedStatus flippedStatus = game.flipCard(0);
+        assertThat(flippedStatus).isEqualTo(WAITING_FOR_SECOND_CARD_TO_BE_FLIPPED);
         assertThat(game.mCards[0].isFaceDown()).isFalse();
         assertThat(game.mCards[1].isFaceDown()).isTrue();
     }
@@ -89,9 +94,10 @@ public class GameTest {
 
         // When
         game.flipCard(0);
-        game.flipCard(2);
+        FlippedStatus flippedStatus = game.flipCard(2);
 
         // Then
+        assertThat(flippedStatus).isEqualTo(PAIR_FOUND);
         assertThat(game.mCards[0].isFaceDown()).isFalse();
         assertThat(game.mCards[1].isFaceDown()).isTrue();
         assertThat(game.mCards[2].isFaceDown()).isFalse();
@@ -113,9 +119,10 @@ public class GameTest {
 
         // When
         game.flipCard(0);
-        game.flipCard(1);
+        FlippedStatus flippedStatus = game.flipCard(1);
 
         // Then
+        assertThat(flippedStatus).isEqualTo(INVALID_PAIR);
         assertThat(game.mCards[0].isFaceDown()).isTrue();
         assertThat(game.mCards[1].isFaceDown()).isTrue();
         assertThat(game.mCards[2].isFaceDown()).isTrue();

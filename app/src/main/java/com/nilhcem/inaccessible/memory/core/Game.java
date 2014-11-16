@@ -9,6 +9,12 @@ public class Game {
     final Card[] mCards;
     Card mPreviouslyFlippedCard;
 
+    public enum FlippedStatus {
+        WAITING_FOR_SECOND_CARD_TO_BE_FLIPPED,
+        PAIR_FOUND,
+        INVALID_PAIR
+    }
+
     public Game(String... cards) {
         List<Card> deck = new ArrayList<>();
         for (String card : cards) {
@@ -27,7 +33,7 @@ public class Game {
         return mCards.length;
     }
 
-    public void flipCard(int position) {
+    public FlippedStatus flipCard(int position) {
         Card cardToFlip = mCards[position];
         if (!cardToFlip.isFaceDown()) {
             throw new UnsupportedOperationException("Card is already facing up");
@@ -36,18 +42,22 @@ public class Game {
         cardToFlip.flip();
         if (mPreviouslyFlippedCard == null) {
             mPreviouslyFlippedCard = cardToFlip;
+            return FlippedStatus.WAITING_FOR_SECOND_CARD_TO_BE_FLIPPED;
         } else {
-            setCardsToFaceOffAgainIfNotSimilar(mPreviouslyFlippedCard, cardToFlip);
+            boolean success = setCardsToFaceOffAgainIfNotSimilar(mPreviouslyFlippedCard, cardToFlip);
             mPreviouslyFlippedCard = null;
+            return (success) ? FlippedStatus.PAIR_FOUND : FlippedStatus.INVALID_PAIR;
         }
     }
 
-    private void setCardsToFaceOffAgainIfNotSimilar(Card card1, Card card2) {
+    private boolean setCardsToFaceOffAgainIfNotSimilar(Card card1, Card card2) {
         // If cards are not similar, then they must be face of again.
         if (!card1.equals(card2)) {
             card1.flip();
             card2.flip();
+            return false;
         }
+        return true;
     }
 
     public boolean isOver() {

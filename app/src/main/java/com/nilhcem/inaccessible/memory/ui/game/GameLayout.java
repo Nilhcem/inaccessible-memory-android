@@ -1,4 +1,4 @@
-package com.nilhcem.inaccessible.memory.ui;
+package com.nilhcem.inaccessible.memory.ui.game;
 
 import android.content.Context;
 import android.util.AttributeSet;

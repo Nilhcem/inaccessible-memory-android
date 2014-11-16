@@ -1,4 +1,4 @@
-package com.nilhcem.inaccessible.memory.ui;
+package com.nilhcem.inaccessible.memory.ui.game;
 
 import com.nilhcem.inaccessible.memory.R;
 import com.nilhcem.inaccessible.memory.RobolectricGradleTestRunner;

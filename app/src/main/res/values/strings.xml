@@ -2,6 +2,13 @@
 <resources>
     <string name="app_name">Memory Game</string>
 
+    <!-- Menu Activity -->
+    <string name="difficulty_select">Please, select your difficulty:</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Hard</string>
+
+    <!-- Game Activity -->
     <string name="card_content_description_prefix">"Card "</string>
     <string name="card_content_description_face_down">Card %d</string>
     <string name="card_content_description_face_up">"Card %1$d is a %2$s"</string>

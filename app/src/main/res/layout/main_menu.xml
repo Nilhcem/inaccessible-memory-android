@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:contentDescription="@string/difficulty_select"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/difficulty_select"
+        android:textColor="@android:color/transparent"
+        android:textSize="22sp"
+        tools:textColor="@android:color/white">
+
+        <requestFocus/>
+    </TextView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:onClick="onStartGameSelected"
+        android:tag="3"
+        android:text="@string/difficulty_easy"
+        android:textColor="@android:color/transparent"
+        tools:background="@android:drawable/btn_default"
+        tools:textColor="@android:color/black"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:onClick="onStartGameSelected"
+        android:tag="6"
+        android:text="@string/difficulty_medium"
+        android:textColor="@android:color/transparent"
+        tools:background="@android:drawable/btn_default"
+        tools:textColor="@android:color/black"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:onClick="onStartGameSelected"
+        android:tag="10"
+        android:text="@string/difficulty_hard"
+        android:textColor="@android:color/transparent"
+        tools:background="@android:drawable/btn_default"
+        tools:textColor="@android:color/black"/>
+</LinearLayout>

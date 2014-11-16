@@ -1,4 +1,4 @@
-package com.nilhcem.inaccessible.memory.ui;
+package com.nilhcem.inaccessible.memory.ui.game;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.nilhcem.inaccessible.memory.BuildConfig;
 import com.nilhcem.inaccessible.memory.R;
 import com.nilhcem.inaccessible.memory.core.Game;
+import com.nilhcem.inaccessible.memory.ui.base.BaseActivity;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
@@ -21,7 +22,9 @@ import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus;
 import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.INVALID_PAIR;
 import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.PAIR_FOUND;
 
-public class MainActivity extends ActionBarActivity implements CardView.OnCardFlippedListener {
+public class GameActivity extends BaseActivity implements CardView.OnCardFlippedListener {
+
+    public static final String EXTRA_NB_CARDS = "nb_cards";
 
     @Icicle Game mGame;
     @Icicle String[] mCheersMessages;
@@ -41,12 +44,6 @@ public class MainActivity extends ActionBarActivity implements CardView.OnCardFl
         }
         mLayout = createLayout(mGame);
         setContentView(mLayout);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Icepick.saveInstanceState(this, outState);
     }
 
     @Override

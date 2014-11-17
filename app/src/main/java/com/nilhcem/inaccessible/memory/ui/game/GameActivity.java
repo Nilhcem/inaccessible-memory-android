@@ -1,11 +1,10 @@
 package com.nilhcem.inaccessible.memory.ui.game;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.nilhcem.inaccessible.memory.BuildConfig;
 import com.nilhcem.inaccessible.memory.R;
 import com.nilhcem.inaccessible.memory.core.Game;
 import com.nilhcem.inaccessible.memory.ui.base.BaseActivity;
@@ -25,7 +24,7 @@ import static com.nilhcem.inaccessible.memory.core.Game.FlippedStatus.PAIR_FOUND
 public class GameActivity extends BaseActivity implements CardView.OnCardFlippedListener {
 
     public static final String EXTRA_NB_CARDS = "nb_cards";
-    private static final int DELAY = 300;
+    public static final String EXTRA_GAMEOVER_MSG = "gameover_msg";
 
     @Icicle Game mGame;
     @Icicle String[] mCheersMessages;
@@ -33,7 +32,6 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
 
     private int mNbCards;
     private ViewGroup mLayout;
-    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +45,11 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
         }
         mLayout = createLayout(mGame);
         setContentView(mLayout);
+    }
+
+    @Override
+    protected View getLayoutToAnnounceMessages() {
+        return mLayout;
     }
 
     @Override
@@ -75,22 +78,6 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
         return layout;
     }
 
-    private void announceMessage(String message) {
-        announceMessage(message, false);
-    }
-
-    private void announceMessage(final String message, boolean withDelay) {
-        if (BuildConfig.DEBUG) {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        } else {
-            mHandler.postDelayed(new Runnable() {
-                public void run() {
-                    mLayout.announceForAccessibility(message);
-                }
-            }, withDelay ? DELAY : 0);
-        }
-    }
-
     private void updateCardsContentDescriptions() {
         final int count = mLayout.getChildCount();
         for (int i = 0; i < count; i++) {
@@ -100,7 +87,10 @@ public class GameActivity extends BaseActivity implements CardView.OnCardFlipped
 
     private void checkGameOver() {
         if (mGame.isOver()) {
-            announceMessage(getString(R.string.game_over, mNbCards * 2, new Duration(mStarted, new DateTime()).getStandardSeconds()), true);
+            Intent intent = new Intent();
+            intent.putExtra(EXTRA_GAMEOVER_MSG, getString(R.string.game_over, mNbCards * 2,
+                    new Duration(mStarted, new DateTime()).getStandardSeconds()));
+            setResult(RESULT_OK, intent);
             finish();
         }
     }

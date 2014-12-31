@@ -31,7 +31,7 @@ android {
 }
 
 dependencies {
-    compile 'joda-time:joda-time:2.5'
+    compile 'joda-time:joda-time:2.6'
 
     compile 'com.github.frankiesardo:icepick:2.3.6'
     provided 'com.github.frankiesardo:icepick-processor:2.3.6'

@@ -18,6 +18,7 @@ import static org.mockito.Mockito.when;
 public class CardViewTest {
 
     @Mock Card card;
+
     private CardView view;
     private CardView.OnCardFlippedListener listener = new CardView.OnCardFlippedListener() {
         @Override

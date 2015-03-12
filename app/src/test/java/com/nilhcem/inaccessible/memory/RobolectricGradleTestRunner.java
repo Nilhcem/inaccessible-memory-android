@@ -6,6 +6,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.res.Fs;
 
+import java.io.File;
+
 /**
  * @see "http://blog.blundell-apps.com/android-gradle-app-with-robolectric-junit-tests/"
  */
@@ -19,8 +21,16 @@ public class RobolectricGradleTestRunner extends RobolectricTestRunner {
 
     @Override
     protected AndroidManifest getAppManifest(Config config) {
-        String manifestProperty = "../app/src/main/AndroidManifest.xml";
-        String resProperty = "../app/src/main/res";
+        String manifestProperty = "app/src/main/AndroidManifest.xml";
+        String resProperty = "app/src/main/res";
+
+        // This patch is for Android studio that searches app directory in ../app instead of ./app using gradle
+        File file = new File("../app");
+        if (file.exists()) {
+            manifestProperty = "../" + manifestProperty;
+            resProperty = "../" + resProperty;
+        }
+
         return new AndroidManifest(Fs.fileFromPath(manifestProperty), Fs.fileFromPath(resProperty)) {
             @Override
             public int getTargetSdkVersion() {

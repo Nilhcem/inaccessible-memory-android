@@ -1,16 +1,17 @@
 apply plugin: 'com.android.application'
+apply from: 'tests.gradle'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion '22.0.0'
 
     defaultConfig {
-        applicationId "com.nilhcem.inaccessible.memory"
+        applicationId 'com.nilhcem.inaccessible.memory'
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
-        resConfigs "en", "fr"
+        versionName '1.0'
+        resConfigs 'en', 'fr'
     }
 
     compileOptions {
@@ -19,6 +20,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -31,7 +36,7 @@ android {
 }
 
 dependencies {
-    compile 'joda-time:joda-time:2.6'
+    compile 'joda-time:joda-time:2.7'
 
     compile 'com.github.frankiesardo:icepick:2.3.6'
     provided 'com.github.frankiesardo:icepick-processor:2.3.6'
